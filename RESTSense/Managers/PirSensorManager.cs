@@ -7,9 +7,15 @@ namespace RESTSense.Managers
 {
     public class PirSensorManager
     {
+        private readonly PirContext _context;
+
+        public PirSensorManager(PirContext context)
+        {
+            _context = context;
+        }
         public List<PirSensor.PirSensor> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Pir.ToList();
         }
     }
 }
