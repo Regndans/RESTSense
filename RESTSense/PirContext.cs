@@ -11,6 +11,6 @@ namespace RESTSense
     {
         public PirContext(DbContextOptions<PirContext> options) : base(options)
         { }
-        public DbSet<PirSensor.PirSensor> Pir { get; set; }
+        public DbSet<PirSensorModel> Pir { get; set; }
     }
 }

@@ -33,9 +33,9 @@ namespace RESTSenseTests
         [TestMethod]
         public void ManagerTest()
         {
-            List<PirSensor.PirSensor> PirList = _manager.GetAll();
+            List<PirSensorModel> PirList = _manager.GetAll();
             //Assert.AreEqual(1, PirList.Count);
-            PirSensor.PirSensor newPir = new PirSensor.PirSensor();
+            PirSensorModel newPir = new PirSensorModel();
             newPir.Name = "Kitchen2";
             newPir.Active = true;
             newPir.Status = "Nothing detected";
@@ -44,7 +44,7 @@ namespace RESTSenseTests
             int sizeOfPi = PirList.Count();
             PirList = _manager.GetAll();
             Assert.AreEqual(sizeOfPi + 1, PirList.Count);
-            PirSensor.PirSensor deleteThis = PirList[PirList.Count - 1];
+            PirSensorModel deleteThis = PirList[PirList.Count - 1];
             sizeOfPi = PirList.Count();
             _manager.DeleteById(deleteThis.Id);
             PirList = _manager.GetAll();

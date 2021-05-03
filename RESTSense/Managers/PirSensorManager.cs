@@ -14,12 +14,12 @@ namespace RESTSense.Managers
         {
             _context = context;
         }
-        public List<PirSensor.PirSensor> GetAll()
+        public List<PirSensorModel> GetAll()
         {
             return _context.Pir.ToList();
         }
 
-        public void AddFromSensor(PirSensor.PirSensor newPir)
+        public void AddFromSensor(PirSensorModel newPir)
         {
             _context.Pir.Add(newPir);
             _context.SaveChanges();
@@ -27,7 +27,7 @@ namespace RESTSense.Managers
 
         public void DeleteById(int id)
         {
-            PirSensor.PirSensor pirToDelete = _context.Pir.Find(id);
+            PirSensorModel pirToDelete = _context.Pir.Find(id);
             if (pirToDelete == null) return;
             _context.Pir.Remove(pirToDelete);
             _context.SaveChanges();
