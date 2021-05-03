@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTSense", "RESTSense\RESTSense.csproj", "{D276FD46-D11C-45A2-AD47-4F8C8F39B3C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTSenseTests", "RESTSenseTests\RESTSenseTests.csproj", "{0A7DF3C6-8D7A-4536-8231-17E6E53838E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D276FD46-D11C-45A2-AD47-4F8C8F39B3C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D276FD46-D11C-45A2-AD47-4F8C8F39B3C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D276FD46-D11C-45A2-AD47-4F8C8F39B3C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D276FD46-D11C-45A2-AD47-4F8C8F39B3C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A7DF3C6-8D7A-4536-8231-17E6E53838E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A7DF3C6-8D7A-4536-8231-17E6E53838E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A7DF3C6-8D7A-4536-8231-17E6E53838E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A7DF3C6-8D7A-4536-8231-17E6E53838E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9DCE502-A911-490B-994C-01580746F80D}
+	EndGlobalSection
+EndGlobal
