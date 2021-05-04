@@ -46,7 +46,7 @@ namespace RESTSenseTests
             Assert.AreEqual(sizeOfPi + 1, PirList.Count);
             PirSensorModel deleteThis = PirList[PirList.Count - 1];
             sizeOfPi = PirList.Count();
-            _manager.DeleteById(deleteThis.Id);
+            _manager.DeleteById(deleteThis.Id, Secrets.ourKey);
             PirList = _manager.GetAll();
             Assert.AreEqual(sizeOfPi -1, PirList.Count);
         }
