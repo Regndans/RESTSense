@@ -25,8 +25,6 @@ namespace RESTSenseTests
         [TestInitialize]
         public void Init()
         {
-
-            
             _manager = new PirSensorManager(_context);
         }
 
@@ -46,13 +44,14 @@ namespace RESTSenseTests
             Assert.AreEqual(sizeOfPi + 1, PirList.Count);
             PirSensorModel deleteThis = PirList[PirList.Count - 1];
             sizeOfPi = PirList.Count();
-            //_manager.DeleteById(deleteThis.Id, Secrets.ourKey);
+            _manager.DeleteById(deleteThis.Id, Secrets.ourKey);
             PirList = _manager.GetAll();
             Assert.AreEqual(sizeOfPi -1, PirList.Count);
-            // Test for DeleteAll
+
+            //// Test for DeleteAll
             //_manager.DeleteAll(Secrets.ourKey);
-            PirList = _manager.GetAll();
-            Assert.AreEqual(0, PirList.Count);
+            //PirList = _manager.GetAll();
+            //Assert.AreEqual(0, PirList.Count);
         }
     }
 }
