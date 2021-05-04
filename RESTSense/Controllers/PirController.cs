@@ -49,8 +49,9 @@ namespace RESTSense.Controllers
 
         // DELETE api/<PirsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(int id, [FromQuery] int key = 0)
         {
+            _manager.DeleteById(id, key);
         }
     }
 }

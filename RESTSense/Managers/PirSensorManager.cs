@@ -14,7 +14,7 @@ namespace RESTSense.Managers
         {
             _context = context;
         }
-        public List<PirSensorModel> GetAll()
+        public List<PirSensorModel> GetAll(int key = 0)
         {
             return _context.Pir.ToList();
         }
@@ -25,12 +25,16 @@ namespace RESTSense.Managers
             _context.SaveChanges();
         }
 
-        public void DeleteById(int id)
+        public void DeleteById(int id, int key)
         {
-            PirSensorModel pirToDelete = _context.Pir.Find(id);
-            if (pirToDelete == null) return;
-            _context.Pir.Remove(pirToDelete);
-            _context.SaveChanges();
+            if (key == 1234)
+            {
+                PirSensorModel pirToDelete = _context.Pir.Find(id);
+                if (pirToDelete == null) return;
+                _context.Pir.Remove(pirToDelete);
+                _context.SaveChanges();
+            }
+            else return;
         }
     }
 }
