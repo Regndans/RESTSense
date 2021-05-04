@@ -37,8 +37,9 @@ namespace RESTSense.Controllers
 
         // POST api/<PirsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] PirSensorModel value)
         {
+            _manager.AddFromSensor(value);
         }
 
         // PUT api/<PirsController>/5
