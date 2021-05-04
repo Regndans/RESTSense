@@ -36,5 +36,17 @@ namespace RESTSense.Managers
             }
             else return;
         }
+
+        public void DeleteAll(int ourKey)
+        {
+            if (ourKey == Secrets.ourKey)
+            {
+                foreach (var VARIABLE in _context.Pir)
+                {
+                    _context.Pir.Remove(VARIABLE);
+                }
+                _context.SaveChanges();
+            }
+        }
     }
 }
