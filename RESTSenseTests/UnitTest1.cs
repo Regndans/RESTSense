@@ -27,6 +27,8 @@ namespace RESTSenseTests
             _manager = new PirSensorManager(_context);
         }
 
+        // Tests for the Manager class
+
         [TestMethod]
         public void ManagerTest()
         {
