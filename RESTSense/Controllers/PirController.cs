@@ -76,8 +76,8 @@ namespace RESTSense.Controllers
             return Ok(toDelete);
         }
 
-        //DELETE api/<PirsController>/5
-        [HttpDelete]
+        //DELETE api/<PirsController>
+        [HttpDelete("DeleteAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult DeleteAll([FromQuery] int key = 0)
@@ -88,7 +88,7 @@ namespace RESTSense.Controllers
                 return Ok("Everything deleted");
             }
 
-            return BadRequest("Wrong Key");
+            return BadRequest("Wrong Key, try again");
 
 
         }
