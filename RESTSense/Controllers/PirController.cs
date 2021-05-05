@@ -43,10 +43,20 @@ namespace RESTSense.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
-        public void Post([FromBody] PirSensorModel value)
+        public ActionResult<PirSensorModel> Post([FromBody] PirSensorModel value)
         {
-            _manager.AddFromSensor(value);
+            try
+            {
+                PirSensorModel ToPost = _manager.AddFromSensor(value);
+                string uri = Url.RouteUrl(RouteData.Values) + "/" + ToPost.Id;
+                return Created(uri, ToPost);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+            
         }
 
         // PUT api/<PirsController>/5

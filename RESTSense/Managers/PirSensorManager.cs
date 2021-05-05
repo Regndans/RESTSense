@@ -30,10 +30,11 @@ namespace RESTSense.Managers
         /// </summary>
         /// <param name="newPir"></param>
 
-        public void AddFromSensor(PirSensorModel newPir)
+        public PirSensorModel AddFromSensor(PirSensorModel newPir)
         {
             _context.Pir.Add(newPir);
             _context.SaveChanges();
+            return newPir;
         }
 
         /// <summary>
