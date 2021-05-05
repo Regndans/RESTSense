@@ -25,6 +25,17 @@ namespace RESTSense.Managers
             return _context.Pir.ToList();
         }
 
+        public List<PirSensorModel> GetByDate(string date)
+        {
+            List<PirSensorModel> listOfData = _context.Pir.ToList();
+            List<PirSensorModel> dataWithDate = new List<PirSensorModel>();
+            foreach (var VARIABLE in listOfData)
+            {
+                if(VARIABLE.TimeOfDetection.ToString("yyyy'-'MM'-'dd").Contains(date)) {dataWithDate.Add(VARIABLE);}
+            }
+            return dataWithDate;
+        }
+
         /// <summary>
         /// Method to Add to Pir-table
         /// </summary>

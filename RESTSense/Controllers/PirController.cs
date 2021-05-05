@@ -30,13 +30,13 @@ namespace RESTSense.Controllers
         }
 
         // GET api/<PirsController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{Date}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public string Get(int id)
+        public IEnumerable<PirSensorModel> GetByDate(string date)
         {
-            return "value";
+            return _manager.GetByDate(date);
         }
 
         // POST api/<PirsController>
@@ -60,10 +60,10 @@ namespace RESTSense.Controllers
         }
 
         // PUT api/<PirsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
         // DELETE api/<PirsController>/5
         [HttpDelete("{id}")]
