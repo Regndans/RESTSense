@@ -59,9 +59,11 @@ namespace RESTSense.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public void Delete(int id, [FromQuery] int key = 0)
+        public ActionResult<PirSensorModel> Delete(int id, [FromQuery] int key = 0)
         {
-            _manager.DeleteById(id, key);
+            PirSensorModel toDelete = _manager.DeleteById(id, key);
+            if (toDelete == null) return NotFound("No such Id");
+            return Ok(toDelete);
         }
     }
 }

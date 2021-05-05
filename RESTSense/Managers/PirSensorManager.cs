@@ -42,16 +42,17 @@ namespace RESTSense.Managers
         /// <param name="id"></param>
         /// <param name="key"></param>
 
-        public void DeleteById(int id, int key)
+        public PirSensorModel DeleteById(int id, int key)
         {
             if (key == Secrets.ourKey)
             {
                 PirSensorModel pirToDelete = _context.Pir.Find(id);
-                if (pirToDelete == null) return;
+                if (pirToDelete == null) return null;
                 _context.Pir.Remove(pirToDelete);
                 _context.SaveChanges();
+                return pirToDelete;
             }
-            else return;
+            else return null;
         }
 
         /// <summary>
