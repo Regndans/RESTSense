@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <Reference Include="PirSensor">
-      <HintPath>..\..\SenseModels\SenseModels\bin\Debug\net5.0\PirSensor.dll</HintPath>
+      <HintPath>..\..\RegndansModels\SenseModels\SenseModels\bin\Debug\net5.0\PirSensor.dll</HintPath>
     </Reference>
   </ItemGroup>
 
