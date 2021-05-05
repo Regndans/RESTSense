@@ -31,7 +31,7 @@ namespace RESTSense.Managers
             List<PirSensorModel> dataWithDate = new List<PirSensorModel>();
             foreach (var VARIABLE in listOfData)
             {
-                if(VARIABLE.TimeOfDetection.ToString("yyyy'-'MM'-'dd").Contains(date)) {dataWithDate.Add(VARIABLE);}
+                if(VARIABLE.TimeOfDetection.ToString("yyyy'-'mm'-'dd").Contains(date)) {dataWithDate.Add(VARIABLE);}
             }
             return dataWithDate;
         }
