@@ -24,19 +24,19 @@ namespace RESTSense.Controllers
         // GET: api/<PirsController>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IEnumerable<PirSensorModel> Get()
+        public IEnumerable<PirSensorModel> Get([FromQuery]int? date)
         {
-            return _manager.GetAll();
+            return _manager.GetAll(date);
         }
 
         // GET api/<PirsController>/5
-        [HttpGet("{Date}")]
+        [HttpGet("Date")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public IEnumerable<PirSensorModel> GetByDate(string date)
+        public IEnumerable<PirSensorModel> GetByDate([FromQuery]string date)
         {
-            return _manager.GetByDate(date);
+            return _manager.GetAll();
         }
 
         // POST api/<PirsController>

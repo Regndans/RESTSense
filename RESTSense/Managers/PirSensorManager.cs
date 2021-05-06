@@ -15,25 +15,18 @@ namespace RESTSense.Managers
         }
 
         /// <summary>
-        /// Method to Get All from Pir-table, key in Secrets
+        /// Method to Get All from Pir-table,
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="date"></param>
         /// <returns></returns>
 
-        public List<PirSensorModel> GetAll(int key = 0)
+        public List<PirSensorModel> GetAll(int? date = null)
         {
-            return _context.Pir.ToList();
-        }
-
-        public List<PirSensorModel> GetByDate(string date)
-        {
-            List<PirSensorModel> listOfData = _context.Pir.ToList();
-            List<PirSensorModel> dataWithDate = new List<PirSensorModel>();
-            foreach (var VARIABLE in listOfData)
+            if (date != null)
             {
-                if(VARIABLE.TimeOfDetection.ToString("yyyy'-'mm'-'dd").Contains(date)) {dataWithDate.Add(VARIABLE);}
+                return _context.Pir.Where(model => model.TimeOfDetection.Day == date).ToList();
             }
-            return dataWithDate;
+            return _context.Pir.ToList();
         }
 
         /// <summary>
