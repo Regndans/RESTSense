@@ -33,7 +33,7 @@ namespace RESTSense.Managers
         /// Method to Add to Pir-table
         /// </summary>
         /// <param name="newPir"></param>
-
+        //TODO validate data
         public PirSensorModel AddFromSensor(PirSensorModel newPir)
         {
             _context.Pir.Add(newPir);

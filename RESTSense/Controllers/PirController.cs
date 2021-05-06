@@ -24,19 +24,12 @@ namespace RESTSense.Controllers
         // GET: api/<PirsController>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IEnumerable<PirSensorModel> Get([FromQuery]int? date)
-        {
-            return _manager.GetAll(date);
-        }
-
-        // GET api/<PirsController>/5
-        [HttpGet("Date")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
-        public IEnumerable<PirSensorModel> GetByDate([FromQuery]string date)
+        public ActionResult<IEnumerable<PirSensorModel>> Get([FromQuery]int? date)
         {
-            return _manager.GetAll();
+            List<PirSensorModel> allPirs = _manager.GetAll(date);
+            if (allPirs.Count == 0) return NotFound("Nothing from that date");
+            return Ok(allPirs);
         }
 
         // POST api/<PirsController>
@@ -55,25 +48,22 @@ namespace RESTSense.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
-            
         }
-
-        // PUT api/<PirsController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
 
         // DELETE api/<PirsController>/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<PirSensorModel> Delete(int id, [FromQuery] int key = 0)
         {
-            PirSensorModel toDelete = _manager.DeleteById(id, key);
-            if (toDelete == null) return NotFound("No such Id");
-            return Ok(toDelete);
+            if (key == Secrets.ourKey)
+            {
+                PirSensorModel toDelete = _manager.DeleteById(id, key);
+                if (toDelete == null) return NotFound("No such Id");
+                return Ok(toDelete);
+            }
+            return BadRequest("Wrong key, try again");
         }
 
         //DELETE api/<PirsController>
@@ -87,10 +77,7 @@ namespace RESTSense.Controllers
                 _manager.DeleteAll(key);
                 return Ok("Everything deleted");
             }
-
             return BadRequest("Wrong Key, try again");
-
-
         }
     }
 }
