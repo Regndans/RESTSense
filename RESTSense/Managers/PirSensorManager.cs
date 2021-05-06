@@ -20,21 +20,29 @@ namespace RESTSense.Managers
         /// <param name="key"></param>
         /// <returns></returns>
 
-        public List<PirSensorModel> GetAll(int key = 0)
+        public List<PirSensorModel> GetAll(int? date = null)
         {
+            if (date != null)
+            {
+                //return _context.Pir.Where(model => model.TimeOfDetection.ToString("dd") == date);
+                    //TODO kig på måden vi sammenligner dato på
+                    return _context.Pir.Where(model => model.TimeOfDetection.Day == date).ToList();
+            }
+
             return _context.Pir.ToList();
         }
 
-        public List<PirSensorModel> GetByDate(string date)
-        {
-            List<PirSensorModel> listOfData = _context.Pir.ToList();
-            List<PirSensorModel> dataWithDate = new List<PirSensorModel>();
-            foreach (var VARIABLE in listOfData)
-            {
-                if(VARIABLE.TimeOfDetection.ToString("yyyy'-'mm'-'dd").Contains(date)) {dataWithDate.Add(VARIABLE);}
-            }
-            return dataWithDate;
-        }
+        //public List<PirSensorModel> GetByDate(string date)
+        //{
+        //    List<PirSensorModel> listOfData = _context.Pir.ToList();
+        //    List<PirSensorModel> dataWithDate = new List<PirSensorModel>();
+        //    //foreach (var VARIABLE in listOfData)
+        //    //{
+        //    //    if(VARIABLE.TimeOfDetection.Date.ToString("dd").Contains(date)) {dataWithDate.Add(VARIABLE);}
+        //    //}
+        //    dataWithDate = listOfData.FindAll(model => model.TimeOfDetection.ToString("dd") == date);
+        //    return dataWithDate;
+        //}
 
         /// <summary>
         /// Method to Add to Pir-table

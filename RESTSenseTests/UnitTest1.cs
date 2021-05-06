@@ -33,21 +33,26 @@ namespace RESTSenseTests
         public void ManagerTest()
         {
             List<PirSensorModel> PirList = _manager.GetAll();
-            //Assert.AreEqual(1, PirList.Count);
-            PirSensorModel newPir = new PirSensorModel();
-            newPir.Name = "Kitchen2";
-            newPir.Active = true;
-            newPir.Status = "Nothing detected";
-            newPir.TimeOfDetection = DateTime.Now;
-            _manager.AddFromSensor(newPir);
-            int sizeOfPi = PirList.Count();
+            ////Assert.AreEqual(1, PirList.Count);
+            //PirSensorModel newPir = new PirSensorModel();
+            //newPir.Name = "Kitchen2";
+            //newPir.Active = true;
+            //newPir.Status = "Nothing detected";
+            //newPir.TimeOfDetection = DateTime.Now;
+            //_manager.AddFromSensor(newPir);
+            //int sizeOfPi = PirList.Count();
+            //PirList = _manager.GetAll();
+            //Assert.AreEqual(sizeOfPi + 1, PirList.Count);
+            //PirSensorModel deleteThis = PirList[PirList.Count - 1];
+            //sizeOfPi = PirList.Count();
+            //_manager.DeleteById(deleteThis.Id, Secrets.ourKey);
+            //PirList = _manager.GetAll();
+            //Assert.AreEqual(sizeOfPi -1, PirList.Count);
+            
+            //Tester getbydate metoden
+            PirList = _manager.GetAll(04);
+            Assert.AreEqual(1, PirList.Count);
             PirList = _manager.GetAll();
-            Assert.AreEqual(sizeOfPi + 1, PirList.Count);
-            PirSensorModel deleteThis = PirList[PirList.Count - 1];
-            sizeOfPi = PirList.Count();
-            _manager.DeleteById(deleteThis.Id, Secrets.ourKey);
-            PirList = _manager.GetAll();
-            Assert.AreEqual(sizeOfPi -1, PirList.Count);
 
             //// Test for DeleteAll
             //_manager.DeleteAll(Secrets.ourKey);
