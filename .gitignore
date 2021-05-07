@@ -362,4 +362,3 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 RESTSense/Secrets.cs
-RESTSense/Secrets .cs
