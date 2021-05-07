@@ -20,13 +20,13 @@ namespace RESTSense.Managers
         /// <param name="date"></param>
         /// <returns></returns>
 
-        public List<PirSensorModel> GetAll(int? date = null)
+        public List<MotionModel> GetAll(int? date = null)
         {
             if (date != null)
             {
-                return _context.Pir.Where(model => model.TimeOfDetection.Day == date).ToList();
+                return _context.MotionList.Where(model => model.TimeOfDetection.Day == date).ToList();
             }
-            return _context.Pir.ToList();
+            return _context.MotionList.ToList();
         }
 
         /// <summary>
@@ -34,9 +34,9 @@ namespace RESTSense.Managers
         /// </summary>
         /// <param name="newPir"></param>
         //TODO validate data
-        public PirSensorModel AddFromSensor(PirSensorModel newPir)
+        public MotionModel AddFromSensor(MotionModel newPir)
         {
-            _context.Pir.Add(newPir);
+            _context.MotionList.Add(newPir);
             _context.SaveChanges();
             return newPir;
         }
@@ -47,13 +47,13 @@ namespace RESTSense.Managers
         /// <param name="id"></param>
         /// <param name="key"></param>
 
-        public PirSensorModel DeleteById(int id, int key)
+        public MotionModel DeleteById(int id, int key)
         {
             if (key == Secrets.ourKey)
             {
-                PirSensorModel pirToDelete = _context.Pir.Find(id);
+                MotionModel pirToDelete = _context.MotionList.Find(id);
                 if (pirToDelete == null) return null;
-                _context.Pir.Remove(pirToDelete);
+                _context.MotionList.Remove(pirToDelete);
                 _context.SaveChanges();
                 return pirToDelete;
             }
@@ -69,9 +69,9 @@ namespace RESTSense.Managers
         {
             if (ourKey == Secrets.ourKey)
             {
-                foreach (var VARIABLE in _context.Pir)
+                foreach (var VARIABLE in _context.MotionList)
                 {
-                    _context.Pir.Remove(VARIABLE);
+                    _context.MotionList.Remove(VARIABLE);
                 }
                 _context.SaveChanges();
             }

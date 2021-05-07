@@ -25,9 +25,9 @@ namespace RESTSense.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<PirSensorModel>> Get([FromQuery]int? date)
+        public ActionResult<IEnumerable<MotionModel>> Get([FromQuery]int? date)
         {
-            List<PirSensorModel> allPirs = _manager.GetAll(date);
+            List<MotionModel> allPirs = _manager.GetAll(date);
             if (allPirs.Count == 0) return NotFound("Nothing from that date");
             return Ok(allPirs);
         }
@@ -36,12 +36,12 @@ namespace RESTSense.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<PirSensorModel> Post([FromBody] PirSensorModel value)
+        public ActionResult<MotionModel> Post([FromBody] MotionModel value)
         {
             try
             {
-                PirSensorModel ToPost = _manager.AddFromSensor(value);
-                string uri = Url.RouteUrl(RouteData.Values) + "/" + ToPost.Id;
+                MotionModel ToPost = _manager.AddFromSensor(value);
+                string uri = Url.RouteUrl(RouteData.Values) + "/" + ToPost.MotionId;
                 return Created(uri, ToPost);
             }
             catch (ArgumentException ex)
@@ -55,11 +55,11 @@ namespace RESTSense.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<PirSensorModel> Delete(int id, [FromQuery] int key = 0)
+        public ActionResult<MotionModel> Delete(int id, [FromQuery] int key = 0)
         {
             if (key == Secrets.ourKey)
             {
-                PirSensorModel toDelete = _manager.DeleteById(id, key);
+                MotionModel toDelete = _manager.DeleteById(id, key);
                 if (toDelete == null) return NotFound("No such Id");
                 return Ok(toDelete);
             }
