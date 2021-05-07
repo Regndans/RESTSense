@@ -13,7 +13,7 @@ namespace RESTSense.Managers
         {
             _context = context;
         }
-
+        #region motionMethods
         /// <summary>
         /// Method to Get All from Pir-table,
         /// </summary>
@@ -76,5 +76,33 @@ namespace RESTSense.Managers
                 _context.SaveChanges();
             }
         }
+        #endregion
+        #region SensorMethods
+        public List<SensorModel> GetAllSensors()
+        {
+           return _context.SensorList.ToList();
+        }
+
+        public SensorModel AddSensor(SensorModel newSens)
+        {
+            _context.SensorList.Add(newSens);
+            _context.SaveChanges();
+            return newSens;
+        }
+
+        public SensorModel DeleteSensor(int id, int ourKey)
+        {
+            if (ourKey == Secrets.ourKey)
+            {
+                SensorModel sensToDelete = _context.SensorList.Find(id);
+                if (sensToDelete == null) return null;
+                _context.SensorList.Remove(sensToDelete);
+                _context.SaveChanges();
+                return sensToDelete;
+            }
+            else return null;
+
+        }
+        #endregion
     }
 }

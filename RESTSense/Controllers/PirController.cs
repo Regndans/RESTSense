@@ -31,6 +31,17 @@ namespace RESTSense.Controllers
             if (allPirs.Count == 0) return NotFound("Nothing from that date");
             return Ok(allPirs);
         }
+        //TODO trak ud i egen controller med de andre CRUD metoder
+        // GET: api/<PirsController>
+        [HttpGet("/sens")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<SensorModel>> GetSensors()
+        {
+            List<SensorModel> allSens = _manager.GetAllSensors();
+            if (allSens.Count == 0) return NotFound("Nothing found");
+            return Ok(allSens);
+        }
 
         // POST api/<PirsController>
         [HttpPost]
