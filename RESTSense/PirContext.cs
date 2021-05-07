@@ -10,6 +10,12 @@ namespace RESTSense
     {
         public PirContext(DbContextOptions<PirContext> options) : base(options)
         { }
-        public DbSet<PirSensorModel> Pir { get; set; }
+        public DbSet<MotionModel> MotionList { get; set; }
+        public DbSet<SensorModel> SensorList { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MotionModel>().HasKey(o =>  o.MotionId).HasName("PrimaryKey_MotionId");
+        }
     }
 }

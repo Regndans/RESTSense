@@ -30,37 +30,57 @@ namespace RESTSenseTests
         // Tests for the Manager class
 
         [TestMethod]
-        public void ManagerTest()
+        public void ManagerMotionTest()
         {
-            List<PirSensorModel> PirList = _manager.GetAll();
-            int sizeOfPi = PirList.Count();
-            Assert.AreEqual(sizeOfPi, PirList.Count);
-            PirSensorModel newPir = new PirSensorModel();
-            newPir.Name = "Kitchen2";
-            newPir.Active = true;
+            List<MotionModel> motionList = _manager.GetAll();
+            int sizeOfPi = motionList.Count();
+            Assert.AreEqual(sizeOfPi, motionList.Count);
+            MotionModel newPir = new MotionModel();
+            newPir.SensorId = 1;
             newPir.Status = "Nothing detected";
             newPir.TimeOfDetection = DateTime.Now;
             _manager.AddFromSensor(newPir);
-            sizeOfPi = PirList.Count();
-            PirList = _manager.GetAll();
-            Assert.AreEqual(sizeOfPi + 1, PirList.Count);
+            sizeOfPi = motionList.Count();
+            motionList = _manager.GetAll();
+            Assert.AreEqual(sizeOfPi + 1, motionList.Count);
 
 
-            PirSensorModel deleteThis = PirList[PirList.Count - 1];
-            sizeOfPi = PirList.Count();
-            _manager.DeleteById(deleteThis.Id, Secrets.ourKey);
-            PirList = _manager.GetAll();
-            Assert.AreEqual(sizeOfPi - 1, PirList.Count);
+            MotionModel deleteThis = motionList[motionList.Count - 1];
+            sizeOfPi = motionList.Count();
+            _manager.DeleteById(deleteThis.MotionId, Secrets.ourKey);
+            motionList = _manager.GetAll();
+            Assert.AreEqual(sizeOfPi - 1, motionList.Count);
 
             //Tester getbydate metoden
-            PirList = _manager.GetAll(04);
-            Assert.AreEqual(1, PirList.Count);
-            PirList = _manager.GetAll();
+            motionList = _manager.GetAll(07);
+            Assert.AreEqual(1, motionList.Count);
+            motionList = _manager.GetAll();
 
             //// Test for DeleteAll
             //_manager.DeleteAll(Secrets.ourKey);
             //PirList = _manager.GetAll();
             //Assert.AreEqual(0, PirList.Count);
+        }
+
+        [TestMethod]
+        public void ManagerSensorTest()
+        {
+            List<SensorModel> allSensors = _manager.GetAllSensors();
+            int sizeOfSensor = allSensors.Count();
+            Assert.AreEqual(sizeOfSensor, allSensors.Count);
+
+            SensorModel newSens = new SensorModel();
+            newSens.Active = true;
+            newSens.SensorName = "test";
+            int sizeOfSens = allSensors.Count;
+            _manager.AddSensor(newSens);
+            allSensors = _manager.GetAllSensors();
+            Assert.AreEqual(sizeOfSens+1,allSensors.Count);
+
+            _manager.DeleteSensor(newSens.SensorId,Secrets.ourKey);
+            allSensors = _manager.GetAllSensors();
+            Assert.AreEqual(sizeOfSens,allSensors.Count);
+
         }
     }
 }
