@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RESTSense;
+using RESTSense.Controllers;
 using RESTSense.Managers;
 
 namespace RESTSenseTests
@@ -13,6 +14,7 @@ namespace RESTSenseTests
     {
         private PirSensorManager _manager;
         private readonly PirContext _context;
+        private SensorController _sensController;
 
         public UnitTest1()
         {
@@ -25,6 +27,7 @@ namespace RESTSenseTests
         public void Init()
         {
             _manager = new PirSensorManager(_context);
+            _sensController = new SensorController(_context);
         }
 
         // Tests for the Manager class
@@ -72,7 +75,7 @@ namespace RESTSenseTests
 
             //Test GetById
             SensorModel sensorById = _manager.GetById(2);
-            Assert.AreEqual("Garage", sensorById.SensorName);
+            Assert.AreEqual("Carport", sensorById.SensorName);
 
             //Test Add metode
             SensorModel newSens = new SensorModel();
@@ -88,6 +91,18 @@ namespace RESTSenseTests
             allSensors = _manager.GetAllSensors();
             Assert.AreEqual(sizeOfSens,allSensors.Count);
 
+            //Test Update metode
+            SensorModel updatedSensor = new SensorModel();
+            updatedSensor.Active = true;
+            updatedSensor.SensorName = "Carport";
+            _manager.UpdateSensor(2, updatedSensor, Secrets.ourKey);
+            sensorById = _manager.GetById(2);
+            Assert.AreEqual("Carport", sensorById.SensorName);
+
+            //_manager.UpdateSensor(7, updatedSensor, Secrets.ourKey);
+            //var response = _sensController.Put(7, updatedSensor, Secrets.ourKey);
+            //Assert.AreEqual(404, response);
+            //var controller = 
         }
 
 

@@ -54,7 +54,7 @@ namespace RESTSense.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public ActionResult<MotionModel> Delete(int id, [FromQuery] int key = 0)
         {
             if (key == Secrets.ourKey)
@@ -63,7 +63,7 @@ namespace RESTSense.Controllers
                 if (toDelete == null) return NotFound("No such Id");
                 return Ok(toDelete);
             }
-            return BadRequest("Wrong key, try again");
+            return Unauthorized("Wrong key, try again");
         }
 
         //DELETE api/<MotionController>

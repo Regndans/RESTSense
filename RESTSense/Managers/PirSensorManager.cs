@@ -109,6 +109,19 @@ namespace RESTSense.Managers
             else return null;
 
         }
+
+        public SensorModel UpdateSensor(int id, SensorModel updatedSensor, int ourKey)
+        {
+            SensorModel sensorToUpdate = _context.SensorList.Find(id);
+            if (sensorToUpdate == null) return null;
+            if (ourKey == Secrets.ourKey)
+            {
+                sensorToUpdate.Active = updatedSensor.Active;
+                sensorToUpdate.SensorName = updatedSensor.SensorName;
+                _context.SaveChanges();
+            }
+            return sensorToUpdate;
+        }
         #endregion
     }
 }
