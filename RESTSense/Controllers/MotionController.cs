@@ -12,16 +12,16 @@ namespace RESTSense.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PirController : ControllerBase
+    public class MotionController : ControllerBase
     {
         private readonly PirSensorManager _manager;
 
-        public PirController(PirContext context)
+        public MotionController(PirContext context)
         {
             _manager = new PirSensorManager(context);
         }
 
-        // GET: api/<PirsController>
+        // GET: api/<MotionController>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -31,19 +31,8 @@ namespace RESTSense.Controllers
             if (allPirs.Count == 0) return NotFound("Nothing from that date");
             return Ok(allPirs);
         }
-        //TODO trak ud i egen controller med de andre CRUD metoder
-        // GET: api/<PirsController>
-        [HttpGet("/sens")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<SensorModel>> GetSensors()
-        {
-            List<SensorModel> allSens = _manager.GetAllSensors();
-            if (allSens.Count == 0) return NotFound("Nothing found");
-            return Ok(allSens);
-        }
 
-        // POST api/<PirsController>
+        // POST api/<MotionController>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -61,7 +50,7 @@ namespace RESTSense.Controllers
             }
         }
 
-        // DELETE api/<PirsController>/5
+        // DELETE api/<MotionController>/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -77,7 +66,7 @@ namespace RESTSense.Controllers
             return BadRequest("Wrong key, try again");
         }
 
-        //DELETE api/<PirsController>
+        //DELETE api/<MotionController>
         [HttpDelete("DeleteAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

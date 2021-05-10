@@ -65,10 +65,16 @@ namespace RESTSenseTests
         [TestMethod]
         public void ManagerSensorTest()
         {
+            //Test GetAll metode
             List<SensorModel> allSensors = _manager.GetAllSensors();
             int sizeOfSensor = allSensors.Count();
             Assert.AreEqual(sizeOfSensor, allSensors.Count);
 
+            //Test GetById
+            SensorModel sensorById = _manager.GetById(2);
+            Assert.AreEqual("Garage", sensorById.SensorName);
+
+            //Test Add metode
             SensorModel newSens = new SensorModel();
             newSens.Active = true;
             newSens.SensorName = "test";
@@ -77,10 +83,13 @@ namespace RESTSenseTests
             allSensors = _manager.GetAllSensors();
             Assert.AreEqual(sizeOfSens+1,allSensors.Count);
 
+            //Test Delete metode
             _manager.DeleteSensor(newSens.SensorId,Secrets.ourKey);
             allSensors = _manager.GetAllSensors();
             Assert.AreEqual(sizeOfSens,allSensors.Count);
 
         }
+
+
     }
 }
