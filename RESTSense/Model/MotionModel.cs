@@ -8,9 +8,8 @@ namespace RESTSense
 {
     public class MotionModel
     {
-        
-        public int MotionId { get; set; }
-        public int SensorId { get; set; }
+        public int MotionId { get; set; }//TODO skal vi bruge set??
+        public int SensorId { get; set; }//^
         public string Status { get; set; }
         public DateTime TimeOfDetection { get; set; }
     }

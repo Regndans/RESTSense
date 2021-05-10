@@ -9,7 +9,7 @@ namespace RESTSense
     public class SensorModel
     {
         [Key]
-        public int SensorId { get; set; }
+        public int SensorId { get; set; }//TODO Skal vi bruge set??
         public string SensorName { get; set; }
         public bool Active { get; set; }
     }
