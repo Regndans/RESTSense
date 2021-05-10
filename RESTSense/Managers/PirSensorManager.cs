@@ -83,6 +83,12 @@ namespace RESTSense.Managers
            return _context.SensorList.ToList();
         }
 
+        public SensorModel GetById(int id)
+        {
+            SensorModel sensorM = _context.SensorList.Find(id);
+            return sensorM;
+        }
+
         public SensorModel AddSensor(SensorModel newSens)
         {
             _context.SensorList.Add(newSens);
