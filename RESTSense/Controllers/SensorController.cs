@@ -15,11 +15,11 @@ namespace RESTSense.Controllers
     public class SensorController : ControllerBase
     {
 
-        private readonly PirSensorManager _manager;
+        private readonly SensorManager _manager;
 
         public SensorController(PirContext context)
         {
-            _manager = new PirSensorManager(context);
+            _manager = new SensorManager(context);
         }
 
         // GET: api/<SensorController>
@@ -28,7 +28,7 @@ namespace RESTSense.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<SensorModel>> GetSensors()
         {
-            List<SensorModel> allSens = _manager.GetAllSensors();
+            List<SensorModel> allSens = _manager.GetAll();
             if (allSens.Count == 0) return NotFound("Nothing found");
             return Ok(allSens);
         }
@@ -53,7 +53,7 @@ namespace RESTSense.Controllers
         {
             try
             {
-                SensorModel ToPost = _manager.AddSensor(newSens);
+                SensorModel ToPost = _manager.Add(newSens);
                 string uri = Url.RouteUrl(RouteData.Values) + "/" + ToPost.SensorId;
                 return Created(uri, ToPost);
             }
@@ -74,7 +74,7 @@ namespace RESTSense.Controllers
             {
                 SensorModel sensorModelToUpdate = _manager.GetById(id);
                 if (sensorModelToUpdate == null) NotFound("No Sensor found");
-                SensorModel updatedSensor = _manager.UpdateSensor(id, updateSens, key);
+                SensorModel updatedSensor = _manager.Update(id, updateSens, key);
                 return Ok(updatedSensor);
             }
             return Unauthorized("Wrong key, try again");

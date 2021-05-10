@@ -11,13 +11,12 @@ using RESTSense.Managers;
 namespace RESTSenseTests
 {
     [TestClass]
-    public class ManagerUnitTest
+    public class MotionManagerTests
     {
-        private PirSensorManager _manager;
+        private MotionManager _manager;
         private readonly PirContext _context;
-        private SensorController _sensController;
 
-        public ManagerUnitTest()
+        public MotionManagerTests()
         {
             DbContextOptionsBuilder<PirContext> options = new DbContextOptionsBuilder<PirContext>();
             options.UseSqlServer(Secrets.ConnectionString);
@@ -27,13 +26,10 @@ namespace RESTSenseTests
         [TestInitialize]
         public void Init()
         {
-            _manager = new PirSensorManager(_context);
-            _sensController = new SensorController(_context);
+            _manager = new MotionManager(_context);
         }
 
-        // Tests for the Manager class
-
-        #region ManagerMotion Tests
+        #region Positive tests
 
         [TestMethod]
         public void ManagerMotionGetAllTest()
@@ -84,7 +80,7 @@ namespace RESTSenseTests
             newMotion.SensorId = 1;
             newMotion.Status = "Nothing detected";
             newMotion.TimeOfDetection = DateTime.Now;
-            _manager.AddFromSensor(newMotion);
+            _manager.Add(newMotion);
             //Tester at den nye motion er tilføjet databasen, ved at tjekke størrelsen på array
             motionList = _manager.GetAll();
             Assert.AreEqual(sizeOfMotionList + 1, motionList.Count);
@@ -99,6 +95,11 @@ namespace RESTSenseTests
             Assert.AreEqual(sizeOfMotionList - 1, motionList.Count);
         }
 
+        #endregion
+
+        #region Negative tests
+
+
         [TestMethod]
         public void ManagerMotionAddNegativeTest()
         {
@@ -106,7 +107,7 @@ namespace RESTSenseTests
             int sizeOfMotionList = motionList.Count();
 
             MotionModel newMotion = null;
-            Assert.ThrowsException<ArgumentNullException>(() => _manager.AddFromSensor(newMotion));
+            Assert.ThrowsException<ArgumentNullException>(() => _manager.Add(newMotion));
         }
 
         [TestMethod]
@@ -134,98 +135,6 @@ namespace RESTSenseTests
             Assert.AreNotEqual(sizeOfMotionList-1, motionList);
         }
 
-
         #endregion
-
-
-        [TestMethod]
-        public void ManagerSensorTest()
-        {
-            //Test GetAll metode
-            List<SensorModel> allSensors = _manager.GetAllSensors();
-            int sizeOfSensor = allSensors.Count();
-            Assert.AreEqual(sizeOfSensor, allSensors.Count);
-
-            //Test GetById
-            SensorModel sensorById = _manager.GetById(2);
-            Assert.AreEqual("Carport", sensorById.SensorName);
-
-            //TODO spørg nogen der ved noget
-            //_manager.UpdateSensor(7, updatedSensor, Secrets.ourKey);
-            //var response = _sensController.Put(7, updatedSensor, Secrets.ourKey);
-            //Assert.AreEqual(404, response);
-            //var controller = 
-        }
-
-        [TestMethod]
-        public void ManagerSensorAddAndDeletePositveTest()
-        {
-            //Test Add metode
-            List<SensorModel> allSensors = _manager.GetAllSensors();
-            SensorModel newSens = new SensorModel();
-            newSens.Active = true;
-            newSens.SensorName = "test";
-            int sizeOfSens = allSensors.Count;
-            _manager.AddSensor(newSens);
-            allSensors = _manager.GetAllSensors();
-            Assert.AreEqual(sizeOfSens + 1, allSensors.Count);
-
-            //Test Delete metode
-            _manager.DeleteSensor(newSens.SensorId, Secrets.ourKey);
-            allSensors = _manager.GetAllSensors();
-            Assert.AreEqual(sizeOfSens, allSensors.Count);
-        }
-
-        [TestMethod]
-        public void ManagerSensorAddNegativeTest()
-        {
-            List<SensorModel> sensorList = _manager.GetAllSensors();
-            int sizeOfSensorList = sensorList.Count();
-
-            SensorModel newSensor = null;
-            Assert.ThrowsException<ArgumentNullException>(() => _manager.AddSensor(newSensor));
-        }
-
-        [TestMethod]
-        public void ManagerSensorDeleteNegativeTest()
-        {
-            //Henter liste
-            List<SensorModel> sensorList = _manager.GetAllSensors();
-            int sizeOfSensorList = sensorList.Count();
-            _manager.DeleteSensor(-1, Secrets.ourKey);
-            //henter listen igen
-            sensorList = _manager.GetAllSensors();
-            //Tester at der ikke er slettet noget fra databasen, ved at assert at metoden smider en exception.
-            Assert.AreNotEqual(sizeOfSensorList-1, sensorList.Count);
-        }
-
-        [TestMethod]
-        public void ManagerSensorUpdatePositiveTest()
-        {
-            //Test Update metode
-            List<SensorModel> allSensors = _manager.GetAllSensors();
-            SensorModel sensorById = _manager.GetById(2);
-            string updateName = "Carport";
-
-            SensorModel updatedSensor = new SensorModel();
-            updatedSensor.Active = true;
-            updatedSensor.SensorName = updateName;
-            _manager.UpdateSensor(2, updatedSensor, Secrets.ourKey);
-            sensorById = _manager.GetById(2);
-            Assert.AreEqual(updateName, sensorById.SensorName);
-        }
-
-        [TestMethod]
-        public void ManagerSensorDeleteInvalidKeyTest()
-        {
-            List<SensorModel> sensorList = _manager.GetAllSensors();
-            int sizeOfMotionList = sensorList.Count;
-            _manager.DeleteById(1, 1234);
-            sensorList = _manager.GetAllSensors();
-
-            Assert.AreNotEqual(sizeOfMotionList - 1, sensorList);
-        }
-
-
     }
 }
