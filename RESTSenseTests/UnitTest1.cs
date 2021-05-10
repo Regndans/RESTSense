@@ -32,38 +32,90 @@ namespace RESTSenseTests
 
         // Tests for the Manager class
 
+        #region ManagerMotion Tests
+
         [TestMethod]
-        public void ManagerMotionTest()
+        public void ManagerMotionGetAllTest()
         {
             List<MotionModel> motionList = _manager.GetAll();
             int sizeOfPi = motionList.Count();
             Assert.AreEqual(sizeOfPi, motionList.Count);
-            MotionModel newPir = new MotionModel();
-            newPir.SensorId = 1;
-            newPir.Status = "Nothing detected";
-            newPir.TimeOfDetection = DateTime.Now;
-            _manager.AddFromSensor(newPir);
-            sizeOfPi = motionList.Count();
-            motionList = _manager.GetAll();
-            Assert.AreEqual(sizeOfPi + 1, motionList.Count);
-
-
-            MotionModel deleteThis = motionList[motionList.Count - 1];
-            sizeOfPi = motionList.Count();
-            _manager.DeleteById(deleteThis.MotionId, Secrets.ourKey);
-            motionList = _manager.GetAll();
-            Assert.AreEqual(sizeOfPi - 1, motionList.Count);
-
-            //Tester getbydate metoden
-            motionList = _manager.GetAll(07);
-            Assert.AreEqual(1, motionList.Count);
-            motionList = _manager.GetAll();
 
             //// Test for DeleteAll
             //_manager.DeleteAll(Secrets.ourKey);
             //PirList = _manager.GetAll();
             //Assert.AreEqual(0, PirList.Count);
         }
+
+        [TestMethod]
+        public void GetMotionByDateTest()
+        {
+            //Tester getbydate metoden med positivt gyldigt input. 
+            List<MotionModel> motionList = _manager.GetAll();
+            motionList = _manager.GetAll(07);
+            Assert.AreEqual(1, motionList.Count);
+            motionList = _manager.GetAll();
+
+            //Tester GetByDate metoden med negativt gyldigt input.
+            motionList = _manager.GetAll(01);
+            Assert.AreNotEqual(1, motionList.Count);
+            motionList = _manager.GetAll();
+
+            //Tester GetByDate metoden med negativt ugyldigt input.
+            motionList = _manager.GetAll(-1);
+            Assert.AreNotEqual(1, motionList.Count);
+
+            //Tester GetByDate metoden med negativt ugyldigt input (grænseværdi)
+            motionList = _manager.GetAll(0);
+            Assert.AreNotEqual(1, motionList.Count);
+        }
+
+        [TestMethod]
+        //Positiv test af Add og Delete metoder, med gyldige input
+        public void MangerMotionAddAndDeletePositiveTest()
+        {
+            //Henter liste
+            List<MotionModel> motionList = _manager.GetAll();
+            int sizeOfMotionList = motionList.Count();
+
+            //Tilføjer ny motion til databasen
+            MotionModel newMotion = new MotionModel();
+            newMotion.SensorId = 1;
+            newMotion.Status = "Nothing detected";
+            newMotion.TimeOfDetection = DateTime.Now;
+            _manager.AddFromSensor(newMotion);
+            //Tester at den nye motion er tilføjet databasen, ved at tjekke størrelsen på array
+            sizeOfMotionList = motionList.Count();
+            motionList = _manager.GetAll();
+            Assert.AreEqual(sizeOfMotionList + 1, motionList.Count);
+
+            //Benytter managerens deletemetode til at slette den nye motion fra databasen
+            MotionModel deleteThis = motionList[motionList.Count - 1];
+            sizeOfMotionList = motionList.Count();
+            _manager.DeleteById(deleteThis.MotionId, Secrets.ourKey);
+            //henter listen igen
+            motionList = _manager.GetAll();
+            //Tester at den nye motion er slettet fra databasen, ved at tjekke størrelsen på array
+            Assert.AreEqual(sizeOfMotionList - 1, motionList.Count);
+        }
+
+        [TestMethod]
+        //Negativ test af Add og Delete metoder med gyldige input
+        public void ManagerMotionDeleteNegativeTest()
+        {
+            //Henter liste
+            List<MotionModel> motionList = _manager.GetAll();
+            int sizeOfMotionList = motionList.Count();
+            _manager.DeleteById(-1, Secrets.ourKey);
+            //henter listen igen
+            motionList = _manager.GetAll();
+            //Tester at der ikke er slettet noget fra databasen, ved at assert at metoden smider en exception.
+            Assert.AreEqual(sizeOfMotionList, motionList.Count);
+        }
+
+
+        #endregion
+
 
         [TestMethod]
         public void ManagerSensorTest()
@@ -99,6 +151,7 @@ namespace RESTSenseTests
             sensorById = _manager.GetById(2);
             Assert.AreEqual("Carport", sensorById.SensorName);
 
+            //TODO spørg nogen der ved noget
             //_manager.UpdateSensor(7, updatedSensor, Secrets.ourKey);
             //var response = _sensController.Put(7, updatedSensor, Secrets.ourKey);
             //Assert.AreEqual(404, response);
