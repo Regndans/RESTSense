@@ -14,11 +14,11 @@ namespace RESTSense.Controllers
     [ApiController]
     public class MotionController : ControllerBase
     {
-        private readonly PirSensorManager _manager;
+        private readonly MotionManager _manager;
 
         public MotionController(PirContext context)
         {
-            _manager = new PirSensorManager(context);
+            _manager = new MotionManager(context);
         }
 
         // GET: api/<MotionController>
@@ -40,7 +40,7 @@ namespace RESTSense.Controllers
         {
             try
             {
-                MotionModel ToPost = _manager.AddFromSensor(value);
+                MotionModel ToPost = _manager.Add(value);
                 string uri = Url.RouteUrl(RouteData.Values) + "/" + ToPost.MotionId;
                 return Created(uri, ToPost);
             }

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace RESTSense.Managers
 {
-    public class PirSensorManager
+    public class MotionManager
     {
         private readonly PirContext _context;
 
-        public PirSensorManager(PirContext context)
+        public MotionManager(PirContext context)
         {
             _context = context;
         }
@@ -34,7 +34,7 @@ namespace RESTSense.Managers
         /// </summary>
         /// <param name="newPir"></param>
         //TODO validate data
-        public MotionModel AddFromSensor(MotionModel newPir)
+        public MotionModel Add(MotionModel newPir)
         {
             _context.MotionList.Add(newPir);
             _context.SaveChanges();
@@ -75,52 +75,6 @@ namespace RESTSense.Managers
                 }
                 _context.SaveChanges();
             }
-        }
-        #endregion
-        #region SensorMethods
-        public List<SensorModel> GetAllSensors()
-        {
-           return _context.SensorList.ToList();
-        }
-
-        public SensorModel GetById(int id)
-        {
-            SensorModel sensorM = _context.SensorList.Find(id);
-            return sensorM;
-        }
-
-        public SensorModel AddSensor(SensorModel newSens)
-        {
-            _context.SensorList.Add(newSens);
-            _context.SaveChanges();
-            return newSens;
-        }
-
-        public SensorModel DeleteSensor(int id, int ourKey)
-        {
-            if (ourKey == Secrets.ourKey)
-            {
-                SensorModel sensToDelete = _context.SensorList.Find(id);
-                if (sensToDelete == null) return null;
-                _context.SensorList.Remove(sensToDelete);
-                _context.SaveChanges();
-                return sensToDelete;
-            }
-            else return null;
-
-        }
-
-        public SensorModel UpdateSensor(int id, SensorModel updatedSensor, int ourKey)
-        {
-            SensorModel sensorToUpdate = _context.SensorList.Find(id);
-            if (sensorToUpdate == null) return null;
-            if (ourKey == Secrets.ourKey)
-            {
-                sensorToUpdate.Active = updatedSensor.Active;
-                sensorToUpdate.SensorName = updatedSensor.SensorName;
-                _context.SaveChanges();
-            }
-            return sensorToUpdate;
         }
         #endregion
     }
