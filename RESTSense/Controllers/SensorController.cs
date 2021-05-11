@@ -23,7 +23,7 @@ namespace RESTSense.Controllers
         }
 
         // GET: api/<SensorController>
-        [HttpGet("/sens")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<SensorModel>> GetSensors()
@@ -82,8 +82,15 @@ namespace RESTSense.Controllers
 
         // DELETE api/<SensorController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<SensorModel> Delete(int id, [FromQuery] int key = 0)
         {
+            if (key == Secrets.ourKey)
+            {
+                SensorModel toDelete = _manager.DeleteById(id, key);
+                if (toDelete == null) return NotFound("No such Id");
+                return Ok(toDelete);
+            }
+            return Unauthorized("Wrong key, try again");
         }
     }
 }
