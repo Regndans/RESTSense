@@ -43,11 +43,6 @@ namespace RESTSense.Managers.Tests
             SensorModel sensorById = _manager.GetById(2);
             Assert.AreEqual("Carport", sensorById.SensorName);
 
-            //TODO spørg nogen der ved noget
-            //_manager.UpdateSensor(7, updatedSensor, Secrets.ourKey);
-            //var response = _sensController.Put(7, updatedSensor, Secrets.ourKey);
-            //Assert.AreEqual(404, response);
-            //var controller = 
         }
 
         [TestMethod]
