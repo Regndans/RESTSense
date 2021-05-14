@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using RESTSense.Model;
 
 namespace RESTSense
 {
@@ -12,6 +13,7 @@ namespace RESTSense
         { }
         public DbSet<MotionModel> MotionList { get; set; }
         public DbSet<SensorModel> SensorList { get; set; }
+        public DbSet<TimerModel> ActiveTime { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

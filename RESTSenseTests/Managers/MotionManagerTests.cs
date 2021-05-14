@@ -35,8 +35,8 @@ namespace RESTSenseTests
         public void ManagerMotionGetAllTest()
         {
             List<MotionModel> motionList = _manager.GetAll();
-            int sizeOfPi = motionList.Count();
-            Assert.AreEqual(sizeOfPi, motionList.Count);
+            int sizeOfList = motionList.Count();
+            Assert.AreEqual(sizeOfList, motionList.Count);
 
             //// Test for DeleteAll
             //_manager.DeleteAll(Secrets.ourKey);
