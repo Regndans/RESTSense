@@ -18,13 +18,18 @@ namespace RESTSense.Managers
         /// Method to Get All from Pir-table,
         /// </summary>
         /// <param name="date"></param>
+        /// <param name="sensorId"></param>
         /// <returns></returns>
 
-        public List<MotionModel> GetAll(int? date = null)
+        public List<MotionModel> GetAll(int? date = null, int? sensorId = null)
         {
             if (date != null)
             {
                 return _context.MotionList.Where(model => model.TimeOfDetection.Day == date).ToList();
+            }
+            else if (sensorId != null)
+            {
+                return _context.MotionList.Where(model => model.SensorId == sensorId).ToList();
             }
             return _context.MotionList.ToList();
         }
