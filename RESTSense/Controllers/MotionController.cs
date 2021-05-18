@@ -25,9 +25,9 @@ namespace RESTSense.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<MotionModel>> Get([FromQuery]int? date, [FromQuery] int? sensorId)
+        public ActionResult<IEnumerable<MotionModel>> Get([FromQuery]int? date, [FromQuery] int? month, [FromQuery] int? year, [FromQuery] int? sensorId)
         {
-            List<MotionModel> allPirs = _manager.GetAll(date, sensorId);
+            List<MotionModel> allPirs = _manager.GetAll(date, month, year, sensorId);
             if (allPirs.Count == 0) return NotFound("Nothing found");
             return Ok(allPirs);
         }
