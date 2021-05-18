@@ -21,11 +21,24 @@ namespace RESTSense.Managers
         /// <param name="sensorId"></param>
         /// <returns></returns>
 
-        public List<MotionModel> GetAll(int? date = null, int? sensorId = null)
+        public List<MotionModel> GetAll(int? date = null, int? month = null, int? year = null, int? sensorId = null)
         {
-            if (date != null)
+            if (date != null && month != null && year != null)
+            {
+                return _context.MotionList.Where(model => model.TimeOfDetection.Day == date && 
+                                                          model.TimeOfDetection.Month == month && model.TimeOfDetection.Year == year).ToList();
+            }
+            else if (date != null)
             {
                 return _context.MotionList.Where(model => model.TimeOfDetection.Day == date).ToList();
+            }
+            else if (month != null)
+            {
+                return _context.MotionList.Where(model => model.TimeOfDetection.Month == month).ToList();
+            }
+            else if (year != null)
+            {
+                return _context.MotionList.Where(model => model.TimeOfDetection.Year == year).ToList();
             }
             else if (sensorId != null)
             {
