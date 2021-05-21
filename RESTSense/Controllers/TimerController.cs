@@ -21,7 +21,10 @@ namespace RESTSense.Controllers
         {
             _manager = new TimerManager(context);
         }
-
+        /// <summary>
+        /// Method to get timer
+        /// </summary>
+        /// <returns></returns>
         // GET: api/<TimerController>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -34,7 +37,12 @@ namespace RESTSense.Controllers
 
 
         }
-
+        /// <summary>
+        /// Method to put timer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         // PUT api/<TimerController>/5
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

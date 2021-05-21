@@ -14,12 +14,20 @@ namespace RESTSense.Managers
         {
             _context = context;
         }
-
+        /// <summary>
+        /// Method to get all from timer
+        /// </summary>
+        /// <returns></returns>
         public List<TimerModel> GetAll()
         {
             return _context.ActiveTime.ToList();
         }
-
+        /// <summary>
+        /// Method to update the timer
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="newTime"></param>
+        /// <returns></returns>
         public TimerModel UpdateTimer(int v, TimerModel newTime)
         {
             TimerModel toChange = _context.ActiveTime.Find(v);

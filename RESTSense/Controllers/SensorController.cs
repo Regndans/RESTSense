@@ -21,7 +21,10 @@ namespace RESTSense.Controllers
         {
             _manager = new SensorManager(context);
         }
-
+        /// <summary>
+        /// Method to get all from sensors
+        /// </summary>
+        /// <returns></returns>
         // GET: api/<SensorController>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -32,7 +35,11 @@ namespace RESTSense.Controllers
             if (allSens.Count == 0) return NotFound("Nothing found");
             return Ok(allSens);
         }
-
+        /// <summary>
+        /// Method to get specific sensor from sensors
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET api/<SensorController>/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -44,7 +51,11 @@ namespace RESTSense.Controllers
             return Ok(sensorM);
         }
 
-
+        /// <summary>
+        /// Method to post new sensor to sensors
+        /// </summary>
+        /// <param name="newSens">object to post</param>
+        /// <returns></returns>
         // POST api/<SensorController>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -62,7 +73,13 @@ namespace RESTSense.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Method to update specific sensor
+        /// </summary>
+        /// <param name="id">SensorId to find and put</param>
+        /// <param name="updateSens">object to put</param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         // PUT api/<SensorController>/5
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -79,7 +96,12 @@ namespace RESTSense.Controllers
             }
             return Unauthorized("Wrong key, try again");
         }
-
+        /// <summary>
+        /// Method to delete specific sensor from sensors
+        /// </summary>
+        /// <param name="id">SensorId to find and delete by</param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         // DELETE api/<SensorController>/5
         [HttpDelete("{id}")]
         public ActionResult<SensorModel> Delete(int id, [FromQuery] int key = 0)
