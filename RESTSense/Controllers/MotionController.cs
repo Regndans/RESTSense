@@ -20,7 +20,14 @@ namespace RESTSense.Controllers
         {
             _manager = new MotionManager(context);
         }
-
+        /// <summary>
+        /// Get method to get all motions
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <param name="sensorId"></param>
+        /// <returns>200ok if list.count > 0, else 404notfound</returns>
         // GET: api/<MotionController>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -31,7 +38,11 @@ namespace RESTSense.Controllers
             if (allPirs.Count == 0) return NotFound("Nothing found");
             return Ok(allPirs);
         }
-
+        /// <summary>
+        /// Post method to motions
+        /// </summary>
+        /// <param name="value">object to post</param>
+        /// <returns>201created if value is ok, else 400badrequest</returns>
         // POST api/<MotionController>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -49,7 +60,12 @@ namespace RESTSense.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Delete method for motions
+        /// </summary>
+        /// <param name="id">motionId to delete</param>
+        /// <param name="key"></param>
+        /// <returns>200ok if Id is found, 404Notfound if not found, 401 if key does not match</returns>
         // DELETE api/<MotionController>/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -65,7 +81,11 @@ namespace RESTSense.Controllers
             }
             return Unauthorized("Wrong key, try again");
         }
-
+        /// <summary>
+        /// Method to delete everything from motions
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         //DELETE api/<MotionController>
         [HttpDelete("DeleteAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]

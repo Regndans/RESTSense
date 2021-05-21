@@ -15,12 +15,13 @@ namespace RESTSense.Managers
         }
         #region motionMethods
         /// <summary>
-        /// Method to Get All from Pir-table,
+        /// Method to Get All from Motion-table,
         /// </summary>
-        /// <param name="date"></param>
-        /// <param name="sensorId"></param>
+        /// <param name="date">Date of month to filter by</param>
+        /// <param name="month">Month to filter by</param>
+        /// <param name="year">Year to filter by</param>
+        /// <param name="sensorId">Specific sensor to filter by</param>
         /// <returns></returns>
-
         public List<MotionModel> GetAll(int? date = null, int? month = null, int? year = null, int? sensorId = null)
         {
             if (date != null && month != null && year != null)
@@ -50,36 +51,35 @@ namespace RESTSense.Managers
         /// <summary>
         /// Method to Add to Pir-table
         /// </summary>
-        /// <param name="newPir"></param>
+        /// <param name="value"></param>
         //TODO validate data
-        public MotionModel Add(MotionModel newPir)
+        public MotionModel Add(MotionModel value)
         {
-            _context.MotionList.Add(newPir);
+            _context.MotionList.Add(value);
             _context.SaveChanges();
-            return newPir;
+            return value;
         }
 
         /// <summary>
-        /// Method to Delete specific row in Pir-table, key in Secrets
+        /// Method to Delete specific row in motion-table, key in Secrets
         /// </summary>
         /// <param name="id"></param>
         /// <param name="key"></param>
-
         public MotionModel DeleteById(int id, int key)
         {
             if (key == Secrets.ourKey)
             {
-                MotionModel pirToDelete = _context.MotionList.Find(id);
-                if (pirToDelete == null) return null;
-                _context.MotionList.Remove(pirToDelete);
+                MotionModel motionToDelete = _context.MotionList.Find(id);
+                if (motionToDelete == null) return null;
+                _context.MotionList.Remove(motionToDelete);
                 _context.SaveChanges();
-                return pirToDelete;
+                return motionToDelete;
             }
             else return null;
         }
 
         /// <summary>
-        /// Method to Delete All in Pir-table, key in Secrets
+        /// Method to Delete All in motion-table, key in Secrets
         /// </summary>
         /// <param name="ourKey"></param>
 

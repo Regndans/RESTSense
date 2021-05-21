@@ -15,6 +15,7 @@ namespace RESTSense.Managers
         }
 
         #region SensorMethods
+
         public List<SensorModel> GetAll()
         {
             return _context.SensorList.ToList();
