@@ -30,7 +30,9 @@ namespace RESTSenseTests
         }
 
         #region Positive tests
-
+        /// <summary>
+        /// Tests get all
+        /// </summary>
         [TestMethod]
         public void ManagerMotionGetAllTest()
         {
@@ -43,7 +45,9 @@ namespace RESTSenseTests
             //PirList = _manager.GetAll();
             //Assert.AreEqual(0, PirList.Count);
         }
-
+        /// <summary>
+        /// Tests getall with dates
+        /// </summary>
         [TestMethod]
         public void GetMotionByDateTest()
         {
@@ -99,7 +103,9 @@ namespace RESTSenseTests
 
         #region Negative tests
 
-
+        /// <summary>
+        /// Tests add method with invalid input
+        /// </summary>
         [TestMethod]
         public void ManagerMotionAddNegativeTest()
         {
@@ -123,7 +129,9 @@ namespace RESTSenseTests
             //Tester at der ikke er slettet noget fra databasen, ved at assert at metoden smider en exception.
             Assert.AreNotEqual(sizeOfMotionList-1, motionList.Count);
         }
-
+        /// <summary>
+        /// Tests outcome if key is wrong
+        /// </summary>
         [TestMethod]
         public void ManagerMotionDeleteInvalidKeyTest()
         {

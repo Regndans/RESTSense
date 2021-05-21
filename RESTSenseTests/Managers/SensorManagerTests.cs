@@ -63,7 +63,9 @@ namespace RESTSense.Managers.Tests
             allSensors = _manager.GetAll();
             Assert.AreEqual(sizeOfSens, allSensors.Count);
         }
-
+        /// <summary>
+        /// Tests add method with invalid input
+        /// </summary>
         [TestMethod]
         public void ManagerSensorAddNegativeTest()
         {
@@ -102,7 +104,9 @@ namespace RESTSense.Managers.Tests
             sensorById = _manager.GetById(2);
             Assert.AreEqual(updateName, sensorById.SensorName);
         }
-
+        /// <summary>
+        /// Tests outcome if invalid key is given
+        /// </summary>
         [TestMethod]
         public void ManagerSensorDeleteInvalidKeyTest()
         {

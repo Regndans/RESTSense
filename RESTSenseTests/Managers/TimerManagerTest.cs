@@ -28,6 +28,10 @@ namespace RESTSenseTests.Managers
         {
             _manager = new TimerManager(_context);
         }
+
+        /// <summary>
+        /// Tests getall
+        /// </summary>
         [TestMethod]
         public void ManagerTimerGetAllTest()
         {
@@ -38,6 +42,9 @@ namespace RESTSenseTests.Managers
 
         }
 
+        /// <summary>
+        /// Tests put method
+        /// </summary>
         [TestMethod]
         public void ManagerTimerPutTest()
         {
